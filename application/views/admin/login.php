@@ -59,6 +59,10 @@ License: You must have a valid license purchased only from themeforest(the above
 <div class="content">
     <!-- BEGIN LOGIN FORM -->
     <form class="login-form" action="index.html" method="post">
+        <?php $attributes = array('class' => 'email', 'id' => 'myform');
+        echo form_open('email/send', $attributes);
+
+        ?>
         <h3 class="form-title">Login to your account</h3>
         <div class="alert alert-danger display-hide">
             <button class="close" data-close="alert"></button>
@@ -458,6 +462,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <script href="<?php echo base_url() ?>/assets/pages/scripts/login.min.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 <!-- BEGIN THEME LAYOUT SCRIPTS -->
+
 <!-- END THEME LAYOUT SCRIPTS -->
 </body>
 
