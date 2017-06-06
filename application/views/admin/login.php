@@ -46,7 +46,19 @@ License: You must have a valid license purchased only from themeforest(the above
     <!-- END PAGE LEVEL STYLES -->
     <!-- BEGIN THEME LAYOUT STYLES -->
     <!-- END THEME LAYOUT STYLES -->
-    <link rel="shortcut icon" href="favicon.ico" /> </head>
+    <link rel="shortcut icon" href="favicon.ico" />
+    <style type="text/css">
+        <?php if($show_fp_form){ ?>
+            .forget-form {
+                display: block !important;
+            }
+            .login-form {
+                display: none !important;
+            }
+        <?php } ?>
+    </style>
+
+</head>
 <!-- END HEAD -->
 
 <body class=" login">
@@ -64,6 +76,9 @@ License: You must have a valid license purchased only from themeforest(the above
 
         ?>
         <h3 class="form-title">Login to your account</h3>
+        <?php if($this->session->flashdata('flashError')): ?>
+            <p class='flashMsg flashError'> <?php echo $this->session->flashdata('success'); ?> </p>
+        <?php endif?>
         <div class="alert alert-danger display-hide">
             <button class="close" data-close="alert"></button>
             <span> <?php if(!empty($error)) {echo $error;} ?> </span>
@@ -194,19 +209,27 @@ License: You must have a valid license purchased only from themeforest(the above
     <?php echo form_close(); ?>
     <!-- END LOGIN FORM -->
     <!-- BEGIN FORGOT PASSWORD FORM -->
-    <form class="forget-form" action="index.html" method="post">
-        <h3>Forget Password ?</h3>
-        <p> Enter your e-mail address below to reset your password. </p>
+    <?php $attributes = array('class' => 'forget-form', 'id' => 'forget-form');
+    echo form_open('admin/login/forgot_password', $attributes);
+    ?>
+    <h3>Forget Password ?</h3>
+    <p> Enter your e-mail address below to reset your password. </p>
         <div class="form-group">
             <div class="input-icon">
                 <i class="fa fa-envelope"></i>
-                <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="Email" name="email" /> </div>
+                <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="Email" name="email" />
+            </div>
+            <?php if(!empty($fp_error)) { ?>
+                <span id="email-error" class="help-block"><?php echo $fp_error; ?></span>
+
+            <?php } ?>
+
         </div>
         <div class="form-actions">
             <button type="button" id="back-btn" class="btn grey-salsa btn-outline"> Back </button>
-            <button type="submit" class="btn green pull-right"> Submit </button>
+            <button name="forgot_pass_submit" type="submit" class="btn green pull-right"> Submit </button>
         </div>
-    </form>
+    <?php echo form_close(); ?>
     <!-- END FORGOT PASSWORD FORM -->
     <!-- BEGIN REGISTRATION FORM -->
     <form class="register-form" action="index.html" method="post">

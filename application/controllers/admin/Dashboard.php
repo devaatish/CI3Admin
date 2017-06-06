@@ -16,10 +16,12 @@ class Dashboard extends CI_Controller {
     public function index()
     {
         if($this->session->userdata('logged_in')){
+            $this->load->view('templates/header');
+            $this->load->view('templates/left_sidebar.php');
             $this->load->view('admin/dashboard');
+            $this->load->view('templates/footer');
         } else {
             redirect('admin/login');
-            //redirect('login');
         }
     }
 
@@ -34,16 +36,6 @@ class Dashboard extends CI_Controller {
     public function view($page = 'home')
     {
 
-       /* if ( ! file_exists(APPPATH.'views/admin/'.$page.'.php'))
-        {
-            // Whoops, we don't have a page for that!
-            show_404();
-        }*/
-        echo "here";die;
-        $data['title'] = ucfirst($page); // Capitalize the first letter
 
-        $this->load->view('templates/header', $data);
-        $this->load->view('admin/'.$page, $data);
-        $this->load->view('templates/footer', $data);
     }
 }

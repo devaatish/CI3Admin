@@ -12,6 +12,11 @@ class Login_model extends CI_Model {
     }
 
 
+    /**
+     * This Function check user is already present in users table or not
+     * @param $data
+     * @return string
+     * */
     function check_user_details($data){
       
       
@@ -25,40 +30,15 @@ class Login_model extends CI_Model {
             return false;
         } 
     }
-    public function email_check($pass)
-    {
-        $this->db->where('password',$pass);
-        $query=$this->db->get('users')->num_rows();
-        if($query > 0)
-        {
-            return 1;
-        }
-        else
-        {
-            return 0;
-        }
-    }
 
 
-    /*
-    *@desc : check for unique user name
-    @param : $username
-    */
-    
-     function checkForUserName($username) {
 
-        $this->db->select('*');
-        $res =  $this->db->get_where('users', array('username'=>$username));
-                
-            if($res->num_rows()>= 1)
-            {
-                return 1;
-            }
-            else
-            {       
-                return 0;
-            }   
-    }
+    /**
+     * To check the email address present in user table or not
+     *
+     * @param       string  $email    Input string
+     * @return      boolean
+     */
 
      function checkForEmail($email) {
             
@@ -67,34 +47,21 @@ class Login_model extends CI_Model {
         $res =  $this->db->get_where('users', array('email'=>$email));
         if($res->num_rows()>= 1)
         {
-            return 1;
+            return true;
         }
         else
         {       
-            return 0;
+            return false;
         }   
     }
       
-
-     function check_oldpassword($password,$id) { 
-         $this->db->select('*');
-        
-        $res =  $this->db->get_where('users', array('password'=>$password,'id'=>$id));
-        if($res->num_rows()==1)
-        {
-            return TRUE;
-        }
-        else
-        {       
-            return FALSE;
-        }  
-     }
 
     /**
      * This function updates admin_user table for password
      * @param $data,$id
      * @return none
-     * */
+     *
+     */
     function update_password($data, $id) {
         $this->db->where('id', $id);
         $res=$this->db->update('users', $data);
@@ -103,6 +70,33 @@ class Login_model extends CI_Model {
             return TRUE;
         }else{
             return FALSE;
+        }
+    }
+
+
+    /**
+     * This function is used to create random 8 digit password, that will get send to user also get updated into database
+     *
+     * @param string  $email Input string
+     * @return if success return string or false
+     */
+    function forgotPassword($email) {
+
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $newpass = '';
+        for ($i = 0; $i < 8; $i++) {
+            $newpass .= $characters[rand(0, $charactersLength - 1)];
+        }
+
+        $data = array(
+            'password' => md5($newpass)
+        );
+        $this->db->update('users', $data, array('email' => $email));
+        if ($this->db->affected_rows() > 0) {
+            return $newpass;
+        } else {
+            return false;
         }
     }
 
