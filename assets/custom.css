@@ -1,0 +1,12 @@
+.required-cptcha {
+    color: #e73d4a;
+    display: block;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+.required-cptcha p {
+    color: #e73d4a !important;
+    display: block;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}

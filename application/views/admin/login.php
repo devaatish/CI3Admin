@@ -26,22 +26,23 @@ License: You must have a valid license purchased only from themeforest(the above
     <meta content="" name="author" />
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url() ?>/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url() ?>/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url() ?>/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url() ?>/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url() ?>/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url() ?>assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url() ?>assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url() ?>assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url() ?>assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url() ?>assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
     <!-- END GLOBAL MANDATORY STYLES -->
     <!-- BEGIN PAGE LEVEL PLUGINS -->
-    <link href="<?php echo base_url() ?>/assets/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url() ?>/assets/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url() ?>assets/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url() ?>assets/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />
     <!-- END PAGE LEVEL PLUGINS -->
     <!-- BEGIN THEME GLOBAL STYLES -->
-    <link href="<?php echo base_url() ?>/assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
-    <link href="<?php echo base_url() ?>/assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url() ?>assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
+    <link href="<?php echo base_url() ?>assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
     <!-- END THEME GLOBAL STYLES -->
     <!-- BEGIN PAGE LEVEL STYLES -->
-    <link href="<?php echo base_url() ?>/assets/pages/css/login-3.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url() ?>assets/pages/css/login-3.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url() ?>assets/custom.css" rel="stylesheet" type="text/css" />
     <!-- END PAGE LEVEL STYLES -->
     <!-- BEGIN THEME LAYOUT STYLES -->
     <!-- END THEME LAYOUT STYLES -->
@@ -58,33 +59,109 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN LOGIN -->
 <div class="content">
     <!-- BEGIN LOGIN FORM -->
-    <form class="login-form" action="index.html" method="post">
-        <?php $attributes = array('class' => 'email', 'id' => 'myform');
-        echo form_open('email/send', $attributes);
+        <?php $attributes = array('class' => 'login-form', 'id' => 'login');
+        echo form_open('admin/login', $attributes);
 
         ?>
         <h3 class="form-title">Login to your account</h3>
         <div class="alert alert-danger display-hide">
             <button class="close" data-close="alert"></button>
-            <span> Enter any username and password. </span>
+            <span> <?php if(!empty($error)) {echo $error;} ?> </span>
         </div>
+        <?php if ($this->session->flashdata('success')) { ?>
+            <div class="alert alert-success">
+                <?php echo $this->session->flashdata('success'); ?>
+            </div>
+        <?php } ?>
         <div class="form-group">
             <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
-            <label class="control-label visible-ie8 visible-ie9">Username</label>
+
+            <?php
+            $attributes = array(
+                'class' => 'control-label visible-ie8 visible-ie9',
+            );
+
+            echo form_label('Username', 'username', $attributes);
+            ?>
+
             <div class="input-icon">
                 <i class="fa fa-user"></i>
-                <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="Username" name="username" /> </div>
+
+                <?php
+                $data = array(
+                    'name'  			=> 'username',
+                    'value' 			=> set_value('username'),
+                    'placeholder'	=> 'Username',
+                    'class'			=> 'form-control placeholder-no-fix',
+                );
+                echo form_input($data);
+                ?>
+            </div>
+            <?php
+            if (form_error('username')){ ?>
+            <span id="username-error" class="help-block"><?php echo form_error('username')?></span>
+            <?php } ?>
+
         </div>
         <div class="form-group">
-            <label class="control-label visible-ie8 visible-ie9">Password</label>
+
+            <?php
+            $attributes = array(
+                'class' => 'control-label visible-ie8 visible-ie9',
+            );
+
+            echo form_label('Password', 'password', $attributes);
+            ?>
             <div class="input-icon">
                 <i class="fa fa-lock"></i>
-                <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="Password" name="password" /> </div>
+                <?php
+                $data = array(
+                    'name'        => 'password',
+                    'value'       => '',
+                    'placeholder'	 => 'Password',
+                    'class'		 =>'form-control placeholder-no-fix',
+                );
+                echo form_password($data);
+                ?>
+            </div>
+            <?php if (form_error('password')){ ?>
+            <span id="username-error" class="help-block"><?php echo form_error('password')?></span>
+            <?php } ?>
         </div>
+
+    <div class="form-group">
+        <label  for="captcha"><?php echo $captcha['image']; ?></label>
+        <input class="form-control placeholder-no-fix " id="cptcha" type="text" autocomplete="off" class='m-wrap placeholder-no-fix' name="userCaptcha" placeholder="Enter above text" value="<?php if(!empty($userCaptcha)){ echo $userCaptcha;} ?>"  />
+
+        <span class="required-cptcha "><?php echo form_error('userCaptcha'); ?></span>
+
+    </div>
+
         <div class="form-actions">
             <label class="checkbox">
-                <input type="checkbox" name="remember" value="1" /> Remember me </label>
-            <button type="submit" class="btn green pull-right"> Login </button>
+                <?php
+                $data = array(
+                    'name'          => 'remember',
+                    'value'         => '1',
+                    //'checked'       => TRUE,
+                    'content'       => 'Remember me'
+                );
+
+                //echo form_checkbox($data);
+                ?>
+                <input type="checkbox" name="remember" value="1" /> Remember me
+            </label>
+            <?php
+            $data = array(
+            'name'          => 'login_submit',
+            'class'         => 'btn green pull-right',
+            'id'            =>  'login_submit',
+            'type'          => 'submit',
+            'content'       => 'Login'
+            );
+
+            echo form_button($data);
+            ?>
         </div>
         <!--<div class="login-options">
             <h4>Or login with</h4>
@@ -103,17 +180,18 @@ License: You must have a valid license purchased only from themeforest(the above
                 </li>
             </ul>
         </div>-->
+
         <div class="forget-password">
             <h4>Forgot your password ?</h4>
             <p> no worries, click
                 <a href="javascript:;" id="forget-password"> here </a> to reset your password. </p>
         </div>
-        <div class="create-account">
+       <!-- <div class="create-account">
             <p> Don't have an account yet ?&nbsp;
                 <a href="javascript:;" id="register-btn"> Create an account </a>
             </p>
-        </div>
-    </form>
+        </div>-->
+    <?php echo form_close(); ?>
     <!-- END LOGIN FORM -->
     <!-- BEGIN FORGOT PASSWORD FORM -->
     <form class="forget-form" action="index.html" method="post">
@@ -437,32 +515,43 @@ License: You must have a valid license purchased only from themeforest(the above
 </div>
 <!-- END LOGIN -->
 <!--[if lt IE 9]>
-<script href="<?php echo base_url() ?>/assets/global/plugins/respond.min.js"></script>
-<script href="<?php echo base_url() ?>/assets/global/plugins/excanvas.min.js"></script>
+<script href="<?php echo base_url() ?>assets/global/plugins/respond.min.js"></script>
+<script href="<?php echo base_url() ?>assets/global/plugins/excanvas.min.js"></script>
 <![endif]-->
 <!-- BEGIN CORE PLUGINS -->
-<script href="<?php echo base_url() ?>/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
-<script href="<?php echo base_url() ?>/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-<script href="<?php echo base_url() ?>/assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
-<script href="<?php echo base_url() ?>/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
-<script href="<?php echo base_url() ?>/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
-<script href="<?php echo base_url() ?>/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
-<script href="<?php echo base_url() ?>/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
-<script href="<?php echo base_url() ?>/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url() ?>assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url() ?>assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url() ?>assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url() ?>assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url() ?>assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url() ?>assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url() ?>assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url() ?>assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
 <!-- END CORE PLUGINS -->
 <!-- BEGIN PAGE LEVEL PLUGINS -->
-<script href="<?php echo base_url() ?>/assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
-<script href="<?php echo base_url() ?>/assets/global/plugins/jquery-validation/js/additional-methods.min.js" type="text/javascript"></script>
-<script href="<?php echo base_url() ?>/assets/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url() ?>assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url() ?>assets/global/plugins/jquery-validation/js/additional-methods.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url() ?>assets/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN THEME GLOBAL SCRIPTS -->
-<script href="<?php echo base_url() ?>/assets/global/scripts/app.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url() ?>assets/global/scripts/app.min.js" type="text/javascript"></script>
 <!-- END THEME GLOBAL SCRIPTS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
-<script href="<?php echo base_url() ?>/assets/pages/scripts/login.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url() ?>assets/pages/scripts/login.min.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 <!-- BEGIN THEME LAYOUT SCRIPTS -->
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+        jQuery("#login_submit").click(function() {
+            var cptcha = jQuery("#cptcha").val();
+            if (cptcha == '') {
+                jQuery(".required-cptcha").html("This field is required.");
 
+            }
+        });
+    });
+
+</script>
 <!-- END THEME LAYOUT SCRIPTS -->
 </body>
 
