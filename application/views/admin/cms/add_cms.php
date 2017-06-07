@@ -60,8 +60,8 @@ $this->load->view('templates/left_sidebar.php');
                                 <div class="col-md-4">
                                     <select class="form-control select2me" name="page_status">
                                         <option value="">Select...</option>
-                                        <option value="Option 1">Enabled</option>
-                                        <option value="Option 2">Disabled</option>
+                                        <option value="1">Enabled</option>
+                                        <option value="0">Disabled</option>
                                     </select>
                                     <?php echo form_error('page_status'); ?>
                                 </div>
