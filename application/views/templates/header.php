@@ -33,11 +33,19 @@ License: You must have a valid license purchased only from themeforest(the above
     <link type="text/css" rel="stylesheet" href="<?php echo base_url() ?>assets/global/plugins/uniform/css/uniform.default.css">
     <link type="text/css" rel="stylesheet" href="<?php echo base_url() ?>assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css">
     <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- DATATABLE  -->
+    <link href="<?php echo base_url() ?>assets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url() ?>assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
+    <!-- END DATATABLE -->
+
+
     <!-- BEGIN PAGE LEVEL PLUGINS -->
-    <link type="text/css" rel="stylesheet" href="<?php echo base_url() ?>assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css">
-    <link type="text/css" rel="stylesheet" href="<?php echo base_url() ?>assets/global/plugins/morris/morris.css">
-    <link type="text/css" rel="stylesheet" href="<?php echo base_url() ?>assets/global/plugins/fullcalendar/fullcalendar.min.css">
-    <link type="text/css" rel="stylesheet" href="<?php echo base_url() ?>assets/global/plugins/jqvmap/jqvmap/jqvmap.css">
+    <link href="<?php echo base_url() ?>assets/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url() ?>assets/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url() ?>assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url() ?>assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url() ?>assets/global/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css" rel="stylesheet" type="text/css" />
+
     <!-- END PAGE LEVEL PLUGINS -->
     <!-- BEGIN THEME GLOBAL STYLES -->
     <link type="text/css" id="style_components" rel="stylesheet" href="<?php echo base_url() ?>assets/global/css/components.min.css">
@@ -76,9 +84,9 @@ License: You must have a valid license purchased only from themeforest(the above
                     <!-- END HEADER SEARCH BOX -->
                     <!-- BEGIN GROUP NOTIFICATION -->
                     <div id="header_notification_bar" class="btn-group-notification btn-group">
-                        <button data-close-others="true" data-hover="dropdown" data-toggle="dropdown" class="btn dropdown-toggle" type="button">
+                        <!--<button data-close-others="true" data-hover="dropdown" data-toggle="dropdown" class="btn dropdown-toggle" type="button">
                             <span class="badge">9</span>
-                        </button>
+                        </button>-->
                         <ul class="dropdown-menu-v2">
                             <li class="external">
                                 <h3>
@@ -236,11 +244,11 @@ License: You must have a valid license purchased only from themeforest(the above
             <div class="content-header-menu">
                 <!-- BEGIN DROPDOWN AJAX MENU -->
                 <div class="dropdown-ajax-menu btn-group">
-                    <button data-close-others="true" data-hover="dropdown" data-toggle="dropdown" class="btn dropdown-toggle" type="button">
+                    <!--<button data-close-others="true" data-hover="dropdown" data-toggle="dropdown" class="btn dropdown-toggle" type="button">
                         <i class="fa fa-circle"></i>
                         <i class="fa fa-circle"></i>
                         <i class="fa fa-circle"></i>
-                    </button>
+                    </button>-->
                     <ul class="dropdown-menu-v2">
                         <li>
                             <a href="start.html">Application</a>

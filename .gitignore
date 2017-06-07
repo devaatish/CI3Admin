@@ -2,7 +2,7 @@
 
 /application/config/config.php
 /application/config/database.php
-/uploads
+uploads/*
 application/cache/*
 !application/cache/index.html
 !application/cache/.htaccess
