@@ -3,7 +3,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Cms extends CI_Controller {
 
-
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     *
+     */
     function __construct()
     {
         parent::__construct();
@@ -16,7 +21,7 @@ class Cms extends CI_Controller {
     }
 
     /**
-     * This function is for listing all the CMS pages added in backend
+     * Display a listing of the resource.
      *
      * @return void
      */
@@ -39,7 +44,7 @@ class Cms extends CI_Controller {
 
 
     /**
-     * This function is for adding the CMS page in backend
+     * Store a newly created resource in storage.
      *
      * @return void
      */
@@ -92,11 +97,12 @@ class Cms extends CI_Controller {
 
 
     /**
-     * This function is for adding the CMS page in backend
+     * Show the form for editing the specified resource.
      *
+     * @param int $cms_id
      * @return void
      */
-    public function edit_cms(){
+    public function edit_cms($cms_id){
 
         if($this->session->userdata('logged_in')){
 
@@ -144,7 +150,19 @@ class Cms extends CI_Controller {
     }
 
     /**
-     * This function is to view CMS page
+     * Update the specified resource in storage.
+     *
+     * @param  int  $cms_id
+     * @return void
+     */
+    public function update_cms( $cms_id)
+    {
+        //
+    }
+
+
+    /**
+     * Display the specified resource.
      *
      * @param $cms_id
      * @return void
@@ -155,9 +173,9 @@ class Cms extends CI_Controller {
     }
 
     /**
-     * This function is to hard delete the CMS page
+     * Remove the specified resource from storage.
      *
-     * @param $cms_id
+     * @param int $cms_id
      * @return void
      */
     public function delete_cms($cms_id){
