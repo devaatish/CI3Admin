@@ -54,7 +54,7 @@ class Cms extends CI_Controller {
 
             // validatation for required fields
             $this->form_validation->set_rules('page_title','Page Title','required');
-            $this->form_validation->set_rules('url_key','URL Key','required');
+            $this->form_validation->set_rules('url_key','URL Key','required|callback_url_key_check');
             $this->form_validation->set_rules('page_status','Status','required');
             $this->form_validation->set_rules('page_content','Page Content','required');
 
@@ -81,7 +81,7 @@ class Cms extends CI_Controller {
                 }
                 else
                 {
-                    $data['error']="Please Enter Valid Username and Password..";
+                    $data['error']="Database error in adding CMS page";
                     $this->load->view('admin/cms/add_cms', $data);
                 }
 
@@ -104,11 +104,12 @@ class Cms extends CI_Controller {
      */
     public function edit_cms($cms_id){
 
+        //echo $cms_id;die;
         if($this->session->userdata('logged_in')){
 
             // validatation for required fields
             $this->form_validation->set_rules('page_title','Page Title','required');
-            $this->form_validation->set_rules('url_key','URL Key','required');
+            $this->form_validation->set_rules('url_key','URL Key','callback_url_key_check');
             $this->form_validation->set_rules('page_status','Status','required');
             $this->form_validation->set_rules('page_content','Page Content','required');
 
@@ -122,26 +123,49 @@ class Cms extends CI_Controller {
                 $data['content_heading']   = $this->input->post('content_heading');
                 $data['meta_keywords']   = $this->input->post('meta_keywords');
                 $data['meta_desc']   = $this->input->post('meta_desc');
-                $data['created_by']   = $this->session->userdata('username');
-                $data['created_at']   = date('M Y h:i:s A');
+                $data['updated_by']   = $this->session->userdata('username');
+                $data['updated_at']   = date('M Y h:i:s A');
 
-                $data_inserted = $this->Cms_model->save_cms_data($data);
+                $data_updated = $this->Cms_model->update_cms_row_by_id($data, $cms_id);
 
-                if($data_inserted)
+                if($data_updated)
                 {
-                    $this->session->set_flashdata('success', 'CMS page added successfuly');
+                    $this->session->set_flashdata('success', 'CMS page updated successfuly');
                     redirect('admin/cms');
 
                 }
                 else
                 {
-                    $data['error']="Please Enter Valid Username and Password..";
-                    $this->load->view('admin/cms/add_cms', $data);
+                    $data['error']="Database error in updating cms page";
+                    $this->load->view('admin/cms/edit_cms', $data);
                 }
 
             }else{
+                $cms_data_array = $this->Cms_model->get_cms_row_by_id($cms_id);
 
-                $this->load->view('admin/cms/add_cms');
+                //echo "<pre>"; print_r($cms_data_array); echo "</pre>";die;
+                //$cms_data = [];
+                if(!empty($cms_data_array)){
+
+                    foreach ($cms_data_array as $value) {
+
+                        $data['cms_data'] = [
+                            'cms_id' => $value->cms_id,
+                            'page_title' => $value->page_title,
+                            'url_key' => $value->url_key,
+                            'page_status' => $value->page_status,
+                            'page_content' => $value->page_content,
+                            'content_heading' => $value->content_heading,
+                            'meta_keywords' => $value->meta_keywords,
+                            'meta_desc' => $value->meta_desc,
+                        ];
+                    }
+                    $this->load->view('admin/cms/edit_cms',$data);
+                    return false;
+                }
+
+                $this->session->set_flashdata('error', 'Database Error');
+                redirect('admin/cms');
             }
 
         } else {
@@ -180,6 +204,37 @@ class Cms extends CI_Controller {
      */
     public function delete_cms($cms_id){
 
+
+    }
+
+    /**
+     * Callback function to check url key already present or not
+     *
+     * @return boolean
+     */
+    public function url_key_check($url_key)
+    {
+        $cms_id = $this->input->post('cms_id'); //die;
+        if(!empty($cms_id)){
+            $res = $this->Cms_model->check_url_key_in_edit($url_key, $cms_id);
+            if($res == 1) {
+                $this->form_validation->set_message('url_key_check', 'Entered {field}  already in use.');
+                return false;
+            }
+            else{
+                return true;
+            }
+
+        }else{
+            $res = $this->Cms_model->check_url_key($url_key);
+            if($res == 1) {
+                $this->form_validation->set_message('url_key_check', 'Entered {field}  already in use.');
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
 
     }
 }

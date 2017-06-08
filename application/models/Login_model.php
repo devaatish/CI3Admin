@@ -14,7 +14,7 @@ class Login_model extends CI_Model {
 
     /**
      * This Function check user is already present in users table or not
-     * @param $data
+     * @param array $data
      * @return string
      * */
     function check_user_details($data){

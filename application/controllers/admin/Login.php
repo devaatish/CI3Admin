@@ -3,7 +3,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Login extends CI_Controller{
 
-
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     *
+     */
     function __construct()
     {
         parent::__construct();
@@ -130,7 +135,7 @@ class Login extends CI_Controller{
     }
 
     /**
-     * This is the call back function to validate captcha
+     * Call back function to validate captcha
      *
      * @param       string  $str    Input string
      * @return      boolean

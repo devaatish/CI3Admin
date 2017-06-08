@@ -28,7 +28,7 @@
                 </a>
                 <ul class="sub-menu" style="display: none;">
                     <li class="nav-item start ">
-                        <a class="nav-link " href="<?php echo base_url()."/admin/cms"; ?>">
+                        <a class="nav-link " href="<?php echo base_url()."admin/cms/"; ?>">
                             <i class="icon-docs"></i>
                             <span class="title">Pages</span>
                         </a>
