@@ -6,8 +6,6 @@ class Cms extends CI_Controller {
     /**
      * Create a new controller instance.
      *
-     * @return void
-     *
      */
     function __construct()
     {
@@ -204,6 +202,16 @@ class Cms extends CI_Controller {
      */
     public function delete_cms($cms_id){
 
+        $res = $this->Cms_model->delete_cms_by_id($cms_id);
+        if($res)
+        {
+            $this->session->set_flashdata('success', 'Your cms deleted successfully');
+        }
+        else
+        {
+            $this->session->set_flashdata('error', 'Some error has occurred');
+        }
+        redirect('admin/cms');
 
     }
 

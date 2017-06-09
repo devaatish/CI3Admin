@@ -103,4 +103,16 @@ class Cms_model extends CI_Model
         }
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param int $id
+     * @return boolean
+     */
+    function delete_cms_by_id($id) {
+
+        $this->db->delete('cms', array('cms_id' => $id));
+        return  $this->db->delete('cms', array('cms_id' => $id));
+    }
+
 }
