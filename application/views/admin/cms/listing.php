@@ -62,7 +62,7 @@
                                     <!--<span class="label label-sm label-success"> View </span>
                                     <span class="label label-sm label-success"> Edit </span>
                                     <span class="label label-sm label-success"> Delete </span>-->
-                                    <a href="<?php echo base_url()."admin/cms/add_cms/".$c_data->cms_id; ?>"><button class="btn green" type="button">View</button></a>
+                                    <a href="<?php echo base_url()."admin/cms/view_cms/".$c_data->cms_id; ?>"><button class="btn green" type="button">View</button></a>
                                     <a href="<?php echo base_url()."admin/cms/edit_cms/".$c_data->cms_id; ?>"><button class="btn blue" type="button">Edit</button></a>
                                     <a href="<?php echo base_url()."admin/cms/delete_cms/".$c_data->cms_id; ?>"><button class="btn red" type="button">Delete</button></a>
                                 </td>

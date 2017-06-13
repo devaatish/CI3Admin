@@ -95,7 +95,7 @@ class Cms extends CI_Controller {
 
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for edit and update the specified resource.
      *
      * @param int $cms_id
      * @return void
@@ -191,6 +191,31 @@ class Cms extends CI_Controller {
      */
     public function view_cms($cms_id){
 
+        $cms_data_array = $this->Cms_model->get_cms_row_by_id($cms_id);
+
+        //echo "<pre>"; print_r($cms_data_array); echo "</pre>";die;
+        //$cms_data = [];
+        if(!empty($cms_data_array)){
+
+            foreach ($cms_data_array as $value) {
+
+                $data['cms_data'] = [
+                    'cms_id' => $value->cms_id,
+                    'page_title' => $value->page_title,
+                    'url_key' => $value->url_key,
+                    'page_status' => $value->page_status,
+                    'page_content' => $value->page_content,
+                    'content_heading' => $value->content_heading,
+                    'meta_keywords' => $value->meta_keywords,
+                    'meta_desc' => $value->meta_desc,
+                ];
+            }
+            $this->load->view('admin/cms/view_cms',$data);
+            return false;
+        }
+
+        $this->session->set_flashdata('error', 'Database Error');
+        redirect('admin/cms');
 
     }
 

@@ -42,6 +42,28 @@
                     </li>
                 </ul>
             </li>
+            <li class="nav-item start">
+                <a class="nav-link" href="<?php echo base_url()."admin/system_config/"; ?>">
+                    <i class="icon-settings"></i>
+                    <span class="title">System Configurations</span>
+
+                </a>
+                <!--<ul class="sub-menu" style="display: none;">
+                    <li class="nav-item start ">
+                        <a class="nav-link " href="<?php /*echo base_url()."admin/cms/"; */?>">
+                            <i class="icon-docs"></i>
+                            <span class="title">Pages</span>
+                        </a>
+                    </li>
+                    <li class="nav-item start ">
+                        <a class="nav-link " href="#">
+                            <i class="icon-docs"></i>
+                            <span class="title">Blocks</span>
+                            <span class="badge badge-success">1</span>
+                        </a>
+                    </li>
+                </ul>-->
+            </li>
 
             <!--<li class="heading">
                 <h3 class="uppercase">CMS</h3>
